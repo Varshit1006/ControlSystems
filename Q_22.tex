@@ -1,0 +1,322 @@
+\documentclass{beamer}
+\mode<presentation>
+\usepackage{amsmath}
+\usepackage{amssymb}
+%\usepackage{advdate}
+\usepackage{adjustbox}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{listings}
+\usepackage{url}
+\def\UrlBreaks{\do\/\do-}
+\usepackage{listings}
+\usepackage{url}
+\usepackage{circuitikz}
+\def\UrlBreaks{\do\/\do-}
+\usetheme{Singapore}
+\usecolortheme{dolphin}
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex,right]{author in head/foot}%
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\setbeamertemplate{navigation symbols}{}
+
+\providecommand{\nCr}[2]{\,^{#1}C_{#2}} % nCr
+\providecommand{\nPr}[2]{\,^{#1}P_{#2}} % nPr
+\providecommand{\mbf}{\mathbf}
+\providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\providecommand{\qfunc}[1]{\ensuremath{Q\left(#1\right)}}
+\providecommand{\sbrak}[1]{\ensuremath{{}\left[#1\right]}}
+\providecommand{\lsbrak}[1]{\ensuremath{{}\left[#1\right.}}
+\providecommand{\rsbrak}[1]{\ensuremath{{}\left.#1\right]}}
+\providecommand{\brak}[1]{\ensuremath{\left(#1\right)}}
+\providecommand{\lbrak}[1]{\ensuremath{\left(#1\right.}}
+\providecommand{\rbrak}[1]{\ensuremath{\left.#1\right)}}
+\providecommand{\cbrak}[1]{\ensuremath{\left\{#1\right\}}}
+\providecommand{\lcbrak}[1]{\ensuremath{\left\{#1\right.}}
+\providecommand{\rcbrak}[1]{\ensuremath{\left.#1\right\}}}
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+\newcommand{\sgn}{\mathop{\mathrm{sgn}}}
+\providecommand{\abs}[1]{\left\vert#1\right\vert}
+\providecommand{\res}[1]{\Res\displaylimits_{#1}}
+\providecommand{\norm}[1]{\lVert#1\rVert}
+\providecommand{\mtx}[1]{\mathbf{#1}}
+\providecommand{\mean}[1]{E\left[ #1 \right]}
+\providecommand{\fourier}{\overset{\mathcal{F}}{ \rightleftharpoons}}
+%\providecommand{\hilbert}{\overset{\mathcal{H}}{ \rightleftharpoons}}
+\providecommand{\system}{\overset{\mathcal{H}}{ \longleftrightarrow}}
+%\newcommand{\solution}[2]{\textbf{Solution:}{#1}}
+%\newcommand{\solution}{\noindent \textbf{Solution: }}
+\providecommand{\dec}[2]{\ensuremath{\overset{#1}{\underset{#2}{\gtrless}}}}
+\newcommand{\myvec}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
+\let\vec\mathbf
+
+\lstset{
+%language=C,
+frame=single,
+breaklines=true,
+columns=fullflexible
+}
+
+\numberwithin{equation}{section}
+
+\title{CONTROL SYSTEMS}
+\author{ G.VARSHIT \\ EE19BTECH11020}
+
+
+\date{\today}
+\end{frame}
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}
+
+\tableofcontents
+\end{frame}
+\begin{frame}{Question}
+\section{Question}
+\frametitle{Question}
+\textbf{$\bullet$Find the transfer function $G(s) = V_{o}(s)/V_{i}(s)$, for each operational amplifier circuit shown in figures given below}\\ \\
+\begin{circuitikz}
+\ctikzset{bipoles/length=1cm}
+\draw
+(0, 0) node[op amp] (opamp) {}
+(opamp.-) to [short,-o] (-2.5,0.35) node[label={[font=\footnotesize]left:$V_{1}$}] {}   -- (-2.5,1) to [R,l^=$R_2$] (-1,1) to [C,l^=$C_2$,-o] (1,1) to (1,0){}
+(-2.5,0.35) to [R,l^=$R_1$] (-2.5,-1) to [C,l^=$C_1$,-o] (-2.5,-1.5) to (-2.5,-2) node[ground]{}
+[short,-*] (opamp.out) to [short,-o] (1.5,0) node[label={[font=\footnotesize]above:$V_{o}$}] {} 
+(opamp.+) to [short,-o] (-1,-0.35)node[label={[font=\footnotesize]below:$V_{i}$}] {}  
+
+;\end{circuitikz}
+\begin{circuitikz}
+\ctikzset{bipoles/length=1cm}
+\draw
+(0, 0) node[op amp] (opamp) {}
+(opamp.-) to [short,-o] (-2.5,0.35) node[label={[font=\footnotesize]left:$V_{1}$}] {}   -- (-2.5,1) to [R,l^=$R_3$] (-1,1) to [C,l^=$C_2$,-o] (1,1) to (1,0){}
+(-1,1) -- (-1,2) to [R,l^=$R_4$] (1,2) -- (1,1)
+(-2.5,0.35) to [R,l^=$R_1$] (-2.5,-1) to [C,l_=$C_1$,-o] (-2.5,-2) to (-2.5,-2.5) node[ground]{}
+(-2.5,-1) -- (-1.5,-1) to [R,l^=$R_2$] (-1.5,-2) -- (-2.5,-2)
+[short,-*] (opamp.out) to [short,-o] (1.5,0) node[label={[font=\footnotesize]above:$V_{o}$}] {} 
+(opamp.+) to [short,-o] (-1,-0.35)node[label={[font=\footnotesize]below:$V_{i}$}] {}  
+;\end{circuitikz}\\
+\hspace{50}Fig.(a)
+\hspace{130}Fig.(b)
+\end{frame}
+\begin{frame}{Non Inverting Op-Amp}
+\section{Theoretical background}
+It is “the operational amplifier in which the output is in phase with input signal”.The input signal is applied to "+" terminal of Op–Amp:
+\begin{center}
+\begin{circuitikz}
+\ctikzset{bipoles/length=1cm}
+\draw
+(0, 0) node[op amp] (opamp) {}
+(opamp.-) to[R,l_=$Z_1$,-o] (-2.5, 0.35) node[label={[font=\footnotesize]above:$0$}] {} -- (-3, 0.35) to (-3,-0.5) node[ground]{}
+(opamp.-) to[short,*-] ++(0,0.5)  coordinate (leftC) node[label={[font=\footnotesize]above:$V_{x}$}] {}
+to[R=$Z_2$] (leftC -| opamp.out) node[label={[font=\footnotesize]above:$V_{o}$}] {}
+to[short,-*] (opamp.out) to [short,-o] (1.5,0) node[label={[font=\footnotesize]above:$V_{o}$}] {} to (1.5,-0.5) node[ground]{}
+(opamp.+) -- (-1.75,-0.35) -- (-1.75,-0.5) to [V,v<=$V_i$] (-1.75,-1) to (-1.75,-1) node[ground]{}
+;\end{circuitikz}
+\end{center}
+Using the voltage divider rule in above circuit :
+\begin{equation}
+    V_x = \frac{Z_1}{Z_1 + Z_2} * V_{o}
+\end{equation}
+As the ideal op-amp's input impedance is infinite, its positive and negative terminal are virtually short, implies 
+\begin{equation}
+    V_{+} = V_{-}
+\end{equation}
+
+
+\end{frame}
+\begin{frame}{TRANSFER FUNCTION of Non Inverting Op-Amp}
+From the above circuit we know:
+\begin{equation}
+   V_{+} = V_{i} \ and \ V_{-} = V_{x} 
+\end{equation}
+So from Eq.(2.2) and Eq.(2.3), this implies
+\begin{equation*}
+    V_{i} = V_{x}
+\end{equation*}
+From Eq.(2.1):
+\begin{equation*}
+    V_{i} = \frac{Z_1}{Z_1 + Z_2} * V_{o}
+\end{equation*}
+\begin{equation}
+    \boxed{\frac{V_o}{V_i} = \frac{Z_1 + Z_2}{Z_1}}
+\end{equation}
+We apply this formula of transfer function of Non inverting Op-amp [Eq.(2.4)] in Fig.(a) and Fig.(b) to obtain solution.
+\end{frame}
+\begin{frame}{Resistor and Capacitor values for Fig.(a)}
+\section{Solution}
+\subsection{Solution(a)}
+Here in Fig.(a), resistor and capacitor values are given as following:\\
+$\bullet$ $R_{1}$ = 4*10^5  $ \Omega$ \\
+$\bullet$ $C_{1}$ = 4*10^{-6} $ F$ \\
+$\bullet$ $R_{2}$ = 1.1*10^5 $ \Omega$ \\
+$\bullet$ $C_{2}$ = 4*10^{-6} $ F$ \\ 
+\vspace{10}
+Hence comparing with general terms :\\
+1. Impedance $Z_1$ is given by series combination of resistance $R_1$ and capacitance $C_1$ \\
+2. Impedance $Z_2$ is given by series combination of resistance $R_2$ and capacitance $C_2$
+
+
+\end{frame}
+\begin{frame}{Calculating $Z_1$ and $Z_2$ for Fig.(a)}
+We know Impedance of Capacitor(C) in Laplace form = $\frac{1}{sC}$.\\
+Hence, :
+\begin{equation*}
+    Z_{1}(s) = R_1 + \frac{1}{sC_1}
+\end{equation*}   
+\begin{equation}
+    Z_{1}(s) = 4*10^5 + \frac{1}{4s*10^{-6}}
+\end{equation}
+\begin{equation*}
+    Z_{2}(s) = R_2 + \frac{1}{sC_2}
+\end{equation*}
+\begin{equation}
+    Z_{2}(s) = 1.1*10^5 + \frac{1}{4s*10^{-6}}
+\end{equation}
+
+\end{frame}
+\begin{frame}{Solution(a)}
+From Eq.(2.4) :
+\begin{equation*}
+    G(s) = \frac{V_{o}(s)}{V_{i}(s)} = \frac{Z_1 + Z_2}{Z_1}
+\end{equation*}
+From Eq.(3.1) and Eq.(3.2):
+\begin{equation*}
+    G(s) = \frac{(4*10^5)+(1.1*10^5)+\frac{1}{4s*10^{-6}}+\frac{1}{4s*10^{-6}}}{4*10^5 + \frac{1}{4s*10^{-6}}}
+\end{equation*}
+Therefore on further simplification:
+\begin{equation*}
+    G(s) = \frac{51s + 50}{40s + 25}
+\end{equation*}
+\begin{equation*}
+    \boxed{G(s) = 1.275\left(\frac{s + 0.98}{s + 0.625}\right)}
+\end{equation*}
+   
+\end{frame}
+
+\begin{frame}{Resistor and Capacitor values for Fig.(b)}
+\subsection{Solution(b)}
+Here in Fig.(a), resistor and capacitor values are given as following:\\
+$\bullet$ $R_{1}$ = 4*10^5  $ \Omega$ \\
+$\bullet$ $C_{1}$ = 4*10^{-6} $ F$ \\
+$\bullet$ $R_{2}$ = 6*10^5 $ \Omega$ \\
+$\bullet$ $R_{3}$ = 6*10^5 $ \Omega$ \\
+$\bullet$ $C_{2}$ = 4*10^{-6} $ F$ \\ 
+$\bullet$ $R_{4}$ = 1.1*10^5 $ \Omega$ \\
+\vspace{10}
+Hence comparing with general terms :\\
+1. Impedance $Z_1$ is given by series combination of resistance $R_1$ and another impedance which is parallel combination of $R_2$ and $C_1$\\
+2. Impedance $Z_2$ is given by series combination of resistance $R_3$ and another impedance which is parallel combination of $R_4$ and $C_2$
+\end{frame}
+\begin{frame}{Calculating $Z_1$ and $Z_2$ for Fig.(b)}
+We know Impedance of Capacitor(C) in Laplace form = $\frac{1}{sC}$.\\
+Hence, :
+\begin{equation*}
+    Z_{1}(s) = R_1 + \frac{1}{\frac{1}{R_2} + \frac{1}{\frac{1}{sC_1}}} = R_1 + \frac{R_2}{sR_2C_1 + 1}
+\end{equation*}   
+\begin{equation}
+    Z_{1}(s) = 4*10^5 + \frac{6*10^5}{6s*10^5*4*10^{-6} + 1}
+\end{equation}
+\begin{equation*}
+    Z_{2}(s) = R_3 + \frac{1}{\frac{1}{R_4} + \frac{1}{\frac{1}{sC_2}}} = R_3 + \frac{R_4}{sR_4C_2 + 1}
+\end{equation*}
+\begin{equation}
+    Z_{2}(s) = 6*10^5 + \frac{1.1*10^5}{1.1s*10^5*4*10^{-6} + 1}
+\end{equation}
+
+\end{frame}
+\begin{frame}{Solution(b)}
+From Eq.(2.4) :
+\begin{equation*}
+    G(s) = \frac{V_{o}(s)}{V_{i}(s)} = \frac{Z_1 + Z_2}{Z_1}
+\end{equation*}
+From Eq.(3.3) and Eq.(3.4):
+\begin{equation*}
+    G(s) = \frac{(4*10^5)+(6*10^5)+ \frac{6*10^5}{6s*10^5*4*10^{-6} + 1} + \frac{1.1*10^5}{1.1s*10^5*4*10^{-6} + 1}}{4*10^5 + \frac{6*10^5}{6s*10^5*4*10^{-6} + 1}}
+\end{equation*}
+Therefore on further simplification:
+\begin{equation*}
+    G(s) = \frac{10.56s^2 + 33.68s + 17.1}{4.224s^2 + 14s + 10}
+\end{equation*}
+
+\begin{equation*}
+    \boxed{G(s) = \frac{2640s^2 + 8420s + 4275}{1056s^2 + 3500s + 2500}}
+\end{equation*}
+ 
+\end{frame}
+\begin{frame}{Bode Plot}
+\section{Plot}
+\subsection{Plot(a)}
+This is the Bode plot for the transfer function of Fig.(a)
+    \begin{center}
+         \includegraphics[height = 7cm]{Transfer_function_1.jpg}
+     \end{center}
+\end{frame}
+\begin{frame}{Response Plots}
+These are the respective plots of impulse and step response for Fig.(a)
+    \begin{center}
+         \includegraphics[height = 4cm]{Impulse_Response_1.jpg}
+         \includegraphics[height = 4cm]{Step_Response_1.jpg}
+    \end{center}
+    
+\end{frame}
+\begin{frame}{Bode Plot}
+
+\subsection{Plot(b)}
+This is the Bode plot for the transfer function of Fig.(b)
+    \begin{center}
+         \includegraphics[height = 7cm]{Transfer_function_2.jpg}
+     \end{center}
+    
+\end{frame}
+\begin{frame}{Response Plots}
+These are the respective plots of impulse and step response for Fig.(b)
+ \begin{center}
+         \includegraphics[height = 4cm]{Impulse_Response_2.jpg}
+         \includegraphics[height = 4cm]{Step_Response_2.jpg}
+     \end{center}
+     
+    
+\end{frame}
+
+%\begin{frame}
+%\frametitle{Introduction}
+%\framesubtitle{Literature}
+%%\begin{figure}[t!]
+%%    \centering
+%%    \begin{subfigure}[t]{0.4\columnwidth}
+%%        \centering
+%%        \includegraphics[width=\columnwidth]{point_source}
+%%        \caption{Single point source}
+%%\label{fig3:subfig1}        
+%%    \end{subfigure}%
+%%    ~
+%%    \begin{subfigure}[t]{0.4\columnwidth}
+%%        \centering
+%%        \includegraphics[width=\columnwidth]{pointNoPowerDist_new}
+%%        \caption{SNR profile}
+%%\label{fig3:subfig2}
+%%    \end{subfigure}
+%%  %  \caption{Average SNR for a BPP. $N=16$}
+%%    \label{fig3}
+%%  \end{figure}
+%
+%\end{frame}
+%  
+%
+%
+%%
+
+\end{document}
